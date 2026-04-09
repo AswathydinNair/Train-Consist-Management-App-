@@ -1,16 +1,20 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public class TrainConsistManagementApp {
-
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App ===");
+        LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
 
-        List<String> trainConsist = new ArrayList<>();
+        System.out.println("UC5 - Preserve Insertion Order of Bogies (LinkedHashSet)");
 
-        // Display initial state
-        System.out.println("Train consist initialized.");
-        System.out.println("Initial number of bogies: " + trainConsist.size());
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
+
+        trainFormation.add("Sleeper"); // duplicate (ignored)
+
+        System.out.println("Final Train Formation (Order Preserved, No Duplicates):");
+        System.out.println(trainFormation);
     }
 }
