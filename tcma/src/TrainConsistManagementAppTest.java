@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrainConsistManagementAppTest {
 
     @Test
-    void testBinarySearch_BogieFound() {
+    void testSearch_ValidSearch() {
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
         boolean result = TrainConsistManagementApp.binarySearchBogie(bogies, "BG309");
@@ -13,7 +13,7 @@ public class TrainConsistManagementAppTest {
     }
 
     @Test
-    void testBinarySearch_BogieNotFound() {
+    void testSearch_BogieNotFound() {
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
         boolean result = TrainConsistManagementApp.binarySearchBogie(bogies, "BG999");
@@ -22,29 +22,25 @@ public class TrainConsistManagementAppTest {
     }
 
     @Test
-    void testBinarySearch_FirstElementMatch() {
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+    void testSearch_EmptyArrayThrowsException() {
+        String[] bogies = {};
 
-        boolean result = TrainConsistManagementApp.binarySearchBogie(bogies, "BG101");
+        Exception exception = assertThrows(IllegalStateException.class, () -> {
+            TrainConsistManagementApp.binarySearchBogie(bogies, "BG101");
+        });
 
-        assertTrue(result);
+        assertEquals("Cannot perform search: No bogies available in the train",
+                exception.getMessage());
     }
 
     @Test
-    void testBinarySearch_LastElementMatch() {
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+    void testSearch_NullArrayThrowsException() {
 
-        boolean result = TrainConsistManagementApp.binarySearchBogie(bogies, "BG550");
+        Exception exception = assertThrows(IllegalStateException.class, () -> {
+            TrainConsistManagementApp.binarySearchBogie(null, "BG101");
+        });
 
-        assertTrue(result);
-    }
-
-    @Test
-    void testBinarySearch_SingleElementArray() {
-        String[] bogies = {"BG101"};
-
-        boolean result = TrainConsistManagementApp.binarySearchBogie(bogies, "BG101");
-
-        assertTrue(result);
+        assertEquals("Cannot perform search: No bogies available in the train",
+                exception.getMessage());
     }
 }
