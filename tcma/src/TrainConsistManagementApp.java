@@ -1,25 +1,39 @@
+import java.util.Arrays;
+
 public class TrainConsistManagementApp {
 
-    // Linear Search Method
-    public static boolean searchBogie(String[] bogieIds, String key) {
+    // Binary Search Method
+    public static boolean binarySearchBogie(String[] bogieIds, String key) {
 
-        for (String id : bogieIds) {
-            if (id.equals(key)) {   // correct string comparison
-                return true;        // stop when found
+        int low = 0;
+        int high = bogieIds.length - 1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int cmp = key.compareTo(bogieIds[mid]);
+
+            if (cmp == 0) {
+                return true; // found
+            } else if (cmp > 0) {
+                low = mid + 1; // search right
+            } else {
+                high = mid - 1; // search left
             }
         }
 
         return false; // not found
     }
 
-    // Main method (for manual run)
     public static void main(String[] args) {
 
+        // MUST be sorted for binary search
         String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
 
         String searchKey = "BG309";
 
-        boolean result = searchBogie(bogies, searchKey);
+        boolean result = binarySearchBogie(bogies, searchKey);
 
         if (result) {
             System.out.println("Bogie Found: " + searchKey);
