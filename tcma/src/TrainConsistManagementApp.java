@@ -1,9 +1,12 @@
-import java.util.Arrays;
-
 public class TrainConsistManagementApp {
 
-    // Binary Search Method
+    // UC20 + UC19 combined
     public static boolean binarySearchBogie(String[] bogieIds, String key) {
+
+        // UC20: Defensive check
+        if (bogieIds == null || bogieIds.length == 0) {
+            throw new IllegalStateException("Cannot perform search: No bogies available in the train");
+        }
 
         int low = 0;
         int high = bogieIds.length - 1;
@@ -15,30 +18,34 @@ public class TrainConsistManagementApp {
             int cmp = key.compareTo(bogieIds[mid]);
 
             if (cmp == 0) {
-                return true; // found
+                return true;
             } else if (cmp > 0) {
-                low = mid + 1; // search right
+                low = mid + 1;
             } else {
-                high = mid - 1; // search left
+                high = mid - 1;
             }
         }
 
-        return false; // not found
+        return false;
     }
 
     public static void main(String[] args) {
 
-        // MUST be sorted for binary search
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogies = {}; // Empty case
 
-        String searchKey = "BG309";
+        try {
+            boolean result = binarySearchBogie(bogies, "BG101");
 
-        boolean result = binarySearchBogie(bogies, searchKey);
+            if (result) {
+                System.out.println("Bogie Found");
+            } else {
+                System.out.println("Bogie Not Found");
+            }
 
-        if (result) {
-            System.out.println("Bogie Found: " + searchKey);
-        } else {
-            System.out.println("Bogie Not Found: " + searchKey);
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+
+        System.out.println("Program continues safely...");
     }
 }
